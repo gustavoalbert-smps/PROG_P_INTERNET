@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="utf-8">
+		<title>Rede Social</title>
+	</head>
+	<body>
+		<h1>Index</h1>
+		{% if perfis %}
+			<ul>
+				{% for perfil in perfis %}
+					<li>
+						<a href ="{% url 'exibir' perfil.id %}">{{ perfil.nome }}
+						</a> / {{ perfil.email }}
+					</li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			<p>Nenhum perfil foi encontrado</p>
+		{% endif %}
+	</body>
+</html>

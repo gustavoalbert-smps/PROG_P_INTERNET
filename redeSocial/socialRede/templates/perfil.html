@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="utf-8">
+		<title>Rede Social</title>
+	</head>
+	<body>
+		<h1>Detalhe do Perfil: {{perfil.nome}}</h1>
+		<a href="{% url 'convidar' perfil.id %}">convidar</a>
+	</body>
+</html>
