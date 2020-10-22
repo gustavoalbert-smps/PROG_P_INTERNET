@@ -14,10 +14,11 @@ class Perfil(models.Model):
 	telefone = models.CharField(max_length = 15, null = False)
 	nome_empresa = models.CharField(max_length = 255, null = False)
 	usuario = models.OneToOneField(Usuario, related_name = 'perfil_usuario', on_delete = models.CASCADE)
+	contatos = models.ManyToManyField('self')
 	#timeline = models.ForeignKey("Postagem", on_delete = models.CASCADE, related_name = 'postagens')
 	
-	def convidar(self, perfil_convidado):
-		convite = Convite(solicitante = self, convidado = perfil_convidado)
+	def convidar(self, perfil_convidado): 
+		convite = Convite(solicitante = self,convidado = perfil_convidado) 
 		convite.save()
 
 class Postagem(models.Model):
@@ -62,3 +63,8 @@ class Reacao(models.Model):
 class Convite(models.Model):
 	solicitante = models.ForeignKey(Perfil, related_name = 'convites_feitos', on_delete = models.CASCADE)
 	convidado = models.ForeignKey(Perfil, related_name = 'convites_recebidos', on_delete = models.CASCADE)
+
+	def aceitar(self):
+		self.convidado.contatos.add(self.solicitante)
+		self.solicitante.contatos.add(self.convidado)
+		self.delete()
